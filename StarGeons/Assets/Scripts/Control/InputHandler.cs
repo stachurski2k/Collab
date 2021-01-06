@@ -8,7 +8,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] float mouseSensitivity=0.5f;
     Vector2 lookInput;
     Vector2 movement;
-    bool Jump;
+    bool Jump,Crouch,Run;
     public Vector2 GetCameraInput(){
         return lookInput*mouseSensitivity;
     }
@@ -16,7 +16,13 @@ public class InputHandler : MonoBehaviour
         //optionaly some blocking etc.
         return movement;
     }
-    public bool JumpInput{
+    public bool IsRunning{
+        get{return Run;}
+    }
+    public bool IsCrouching{
+        get{return Crouch;}
+    }
+    public bool IsJumping{
         get{return Jump;}
     }
     #region MethodsCalledByPlayerController
@@ -28,6 +34,12 @@ public class InputHandler : MonoBehaviour
     }
     public void OnJump(InputValue value){
         Jump=value.isPressed;
+    }
+    public void OnCrouch(InputValue value){
+        Crouch=value.isPressed;
+    }
+    public void OnRun(InputValue value){
+        Run=value.isPressed;
     }
     #endregion
 }
