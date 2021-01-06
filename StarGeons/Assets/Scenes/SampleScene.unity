@@ -955,7 +955,7 @@ MonoBehaviour:
   sprintMultiplier: 2
   crouchMultiplier: 0.4
   airControlMultiplier: 0.5
-  jumpForce: 4
+  jumpForce: 1000
   useSlope: 1
 --- !u!114 &1750072203
 MonoBehaviour:
