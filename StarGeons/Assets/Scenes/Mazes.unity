@@ -946,17 +946,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bbdb95ccc4b4577a62495732a02d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 7
-  depth: 7
+  width: 10
+  depth: 10
   scale: 6
-  straight: {fileID: 8565806143337899525, guid: 120ead08fc620b94e9b843ac15f5246c,
+  straight: {fileID: 5282163346761856145, guid: 3869cf62dbd21b0489e0b05c22aa2d24,
     type: 3}
-  crossroad: {fileID: 7668002047300173359, guid: 7c6ed97a05c04f04192afff79f8433e9,
+  crossroad: {fileID: 3760734239235724737, guid: 82ed0c088161b6041b600d2ff11efa8d,
     type: 3}
-  corner: {fileID: 7189226152038738081, guid: c16c9cd29e188de4cb2b42bf09ab1a61, type: 3}
-  tIntersection: {fileID: 3360629841185521761, guid: 794ca89f3dd5a6a4a9c465649eceeb8b,
+  corner: {fileID: 1345551177234599916, guid: 1b2f1b890a4a4d346bd1db6480f19322, type: 3}
+  tIntersection: {fileID: 604237972855396456, guid: 09ae2ef723c039e47903e9422773f74b,
     type: 3}
-  endpiece: {fileID: 5400846197917111324, guid: 655b22ce27bc26c429497c24f1474388,
+  endpiece: {fileID: 7745126104387004723, guid: 530d76c06b4e4d84680b118f80d3eb57,
     type: 3}
   player: {fileID: 1750072205}
 --- !u!4 &2084668405
