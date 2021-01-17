@@ -946,8 +946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bbdb95ccc4b4577a62495732a02d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  depth: 10
+  width: 30
+  depth: 30
   scale: 6
   straight: {fileID: 5282163346761856145, guid: 3869cf62dbd21b0489e0b05c22aa2d24,
     type: 3}
@@ -958,6 +958,9 @@ MonoBehaviour:
     type: 3}
   endpiece: {fileID: 7745126104387004723, guid: 530d76c06b4e4d84680b118f80d3eb57,
     type: 3}
+  floor: {fileID: 3436118127506438999, guid: d1baf28e8f3592a4cafd7f829217cd78, type: 3}
+  celling: {fileID: 8045215973499134151, guid: 5fe7a2b139b06ad4f9643523aba14057, type: 3}
+  wall: {fileID: 8944321204056174671, guid: a15d95ee33ed9f04991a29c579e743ef, type: 3}
   player: {fileID: 1750072205}
 --- !u!4 &2084668405
 Transform:

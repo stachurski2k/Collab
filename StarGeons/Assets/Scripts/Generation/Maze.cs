@@ -31,6 +31,10 @@ public class Maze : MonoBehaviour
     public GameObject corner;
     public GameObject tIntersection;
     public GameObject endpiece;
+    public GameObject floor;
+    public GameObject celling;
+    public GameObject wall;
+
     [SerializeField] Transform player;
 
     // Start is called before the first frame update
@@ -38,6 +42,7 @@ public class Maze : MonoBehaviour
     {
         InitialiseMap();
         Generate();
+        AddRooms(3,4,10);
         DrawMap();
         PlacePlayer();
     }
@@ -61,11 +66,29 @@ public class Maze : MonoBehaviour
                  map[x, z] = 0;     //1 = wall  0 = corridor
             }
     }
+    void AddRooms(int count,int minSize,int maxSize){
+        for (int i = 0; i < count; i++)
+        {
+            int startX=Random.Range(3,width-3);
+            int startZ=Random.Range(3,depth-3);
+            int roomWidth=Random.Range(minSize,maxSize);
+            int roomDepth=Random.Range(minSize,maxSize);
+
+            for (int x = startX; x < width-3&&x<startX+roomWidth; x++)
+            {
+                for (int z = startZ; z < depth-3&&z<startZ+roomDepth; z++)
+                {
+                    map[x,z]=0;
+                }
+            }
+            
+        }
+    }
 
     void DrawMap()
     {
-        for (int z = 0; z < depth; z++)
-            for (int x = 0; x < width; x++)
+        for (int z = 1; z < depth-1; z++)
+            for (int x = 1; x < width-1; x++)
             {
                 if (map[x, z] == 1)
                 {
@@ -160,10 +183,61 @@ public class Maze : MonoBehaviour
                     GameObject go = Instantiate(tIntersection);
                     go.transform.position = new Vector3(x * scale, 0, z * scale);
                 }
+                else if(map[x,z]==0 &&(CountSquareNeighbours(x,z)>=1&&CountDiagonalNeighbours(x,z)>1||CountSquareNeighbours(x,z)>1&&CountDiagonalNeighbours(x,z)>=1)){
+                    Vector3 pos=new Vector3(x*scale,0,z*scale);
+                    Instantiate(floor,pos,Quaternion.identity);
+                    Instantiate(celling,pos,Quaternion.identity);
+                    LocateWalls(x,z);
+                    if(left){
+                        Instantiate(wall,pos,Quaternion.identity);
+                    }
+                    if(top){
+                        var go=Instantiate(wall,pos,Quaternion.identity);
+                        go.transform.Rotate(0,90,0);
+                    }
+                    if(right){
+                        var go=Instantiate(wall,pos,Quaternion.identity);
+                        go.transform.Rotate(0,180,0);
+                    }
+                    if(bottom){
+                        var go=Instantiate(wall,pos,Quaternion.identity);
+                        go.transform.Rotate(0,-90,0);
+                    }
+                }
+                else{
+                    Vector3 pos = new Vector3(x * scale, 0, z * scale);
+                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    wall.transform.localScale = new Vector3(scale, scale, scale);
+                    wall.transform.position = pos;
+                }
 
 
             }
     }
+    bool top;
+    bool bottom;
+    bool right;
+    bool left;
+    void LocateWalls(int x,int z){
+        top=false;
+        bottom=false;
+        right=false;
+        left=false;
+        if(x<=0||x>=width-1||z<=0||z>=depth-1)return;
+        if(map[x,z+1]==1){
+            top=true;
+        }
+        if(map[x+1,z]==1){
+            right=true;
+        }
+        if(map[x,z-1]==1){
+            bottom=true;
+        }
+        if(map[x-1,z]==1){
+            left=true;
+        }
+    }
+
 
     bool Search2D(int c, int r, int[] pattern)
     {
