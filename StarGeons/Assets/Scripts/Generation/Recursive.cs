@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Recursive : Maze
+public class Recursive : Map
 {
     public override void Generate()
     {

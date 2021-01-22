@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prims : Maze
+public class Prims : Map
 {
     public override void Generate()
     {

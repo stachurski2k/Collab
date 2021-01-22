@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wilsons : Maze
+public class Wilsons : Map
 {
 
     List<MapLocation> notUsed = new List<MapLocation>();

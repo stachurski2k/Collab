@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crawler : Maze
+public class Crawler : Map
 {
 
     public override void Generate()
