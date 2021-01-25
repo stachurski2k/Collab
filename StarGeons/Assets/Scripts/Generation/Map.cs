@@ -22,7 +22,23 @@ public class MapLocation
     }
     public Vector3 ToVector3(int scale,float y){
         return new Vector3(x*scale,y,z*scale);
-    }   
+    }
+    public Vector2 ToVector2(){
+        return new Vector2(x,z);
+    }
+    public static MapLocation operator +(MapLocation a,MapLocation b){
+        return new MapLocation(a.x+b.x,a.z+b.z);
+    }
+    public override bool Equals(object obj)
+    {
+        MapLocation mapLocation=obj as MapLocation;
+        return mapLocation!=null&&mapLocation.x==x&&mapLocation.z==z;
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+   
 }
 
 public class Map : MonoBehaviour
@@ -101,13 +117,16 @@ public class Map : MonoBehaviour
         InitialiseMap();
         Generate();
         AddRooms(numOfRooms,2,maxRoomSize);
+        if(TryGetComponent<PathFinder>(out PathFinder pathFinder)){
+            pathFinder.Build();
+        }
         DrawMap();
         if(placedPlayer)return;
         PlacePlayer();
         placedPlayer=true;
     }
 
-    void InitialiseMap()
+    public void InitialiseMap()
     {
         map = new byte[width,depth];
         piecePlaces=new Pieces[width,depth];
