@@ -26,8 +26,8 @@ public class PathFinder : MonoBehaviour
     public Map map;
     List<PathMarker> openMarkers=new List<PathMarker>();
     List<PathMarker> closedMarkers=new List<PathMarker>();
-    PathMarker goalMarker;
-    PathMarker startMarker;
+    public PathMarker goalMarker;
+    public PathMarker startMarker;
     PathMarker lastPos;
     bool done;
     public void Build()

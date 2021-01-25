@@ -117,8 +117,79 @@ public class Map : MonoBehaviour
         InitialiseMap();
         Generate();
         AddRooms(numOfRooms,2,maxRoomSize);
+        byte[,] oldMap=map;
+        int oldWidth=width;
+        int oldDepth=depth;
+
+        width+=6;
+        depth+=6;
+        map=new byte[width,depth];
+        InitialiseMap();
+        for (int x = 0; x < oldWidth; x++)
+        {
+            for (int z = 0; z < oldDepth; z++)
+            {
+                map[x+3,z+3]=oldMap[x,z];
+            }
+        }
+        int xpos;
+        int zpos;
+
         if(TryGetComponent<PathFinder>(out PathFinder pathFinder)){
             pathFinder.Build();
+            if(pathFinder.startMarker.location.x<pathFinder.goalMarker.location.x){
+                xpos=pathFinder.startMarker.location.x;
+                zpos=pathFinder.startMarker.location.z;
+                while(xpos>1){
+                    map[xpos,zpos]=0;
+                    xpos--;
+                }
+                xpos=pathFinder.goalMarker.location.x;
+                zpos=pathFinder.goalMarker.location.z;
+                while(xpos<width-1){
+                    map[xpos,zpos]=0;
+                    xpos++;
+                }
+            }else{
+                xpos=pathFinder.goalMarker.location.x;
+                zpos=pathFinder.goalMarker.location.z;
+                while(xpos>1){
+                    map[xpos,zpos]=0;
+                    xpos--;
+                }
+                xpos=pathFinder.startMarker.location.x;
+                zpos=pathFinder.startMarker.location.z;
+                while(xpos<width-1){
+                    map[xpos,zpos]=0;
+                    xpos++;
+                }
+            }
+        }
+        else{
+            zpos=depth-2;
+            xpos=Random.Range(3,width-3);
+            while(map[xpos,zpos]!=0&&zpos>1){
+                map[xpos,zpos]=0;
+                zpos--;
+            }
+            zpos=2;
+            xpos=Random.Range(3,width-3);
+            while(map[xpos,zpos]!=0&&zpos<depth-1){
+                map[xpos,zpos]=0;
+                zpos++;
+            }
+             xpos=depth-2;
+            zpos=Random.Range(3,width-3);
+            while(map[xpos,zpos]!=0&&xpos>1){
+                map[xpos,zpos]=0;
+                xpos--;
+            }
+            xpos=2;
+            zpos=Random.Range(3,width-3);
+            while(map[xpos,zpos]!=0&&xpos<width-1){
+                map[xpos,zpos]=0;
+                xpos++;
+            }
         }
         DrawMap();
         if(placedPlayer)return;
