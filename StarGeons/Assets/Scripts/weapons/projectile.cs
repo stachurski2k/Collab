@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class projectile : MonoBehaviour
 {
     [HideInInspector] public float lifeTime;
-    [HideInInspector] public float Damage;
+    [HideInInspector] public int Damage;
+
+    Enemy enemy;
 
     private void Start()
     {
@@ -14,11 +17,27 @@ public class projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print($"hit {other.transform.name}");
-        Destroy(gameObject);
+        try
+        {
+            enemy = other.GetComponentInParent<Enemy>();
+        }
+        catch (NullReferenceException)
+        {
+            //have not found enemy (didn't hit him)
+        }
 
-        // do things
+        if (enemy)
+        {
+            enemy.takeHit(Damage);
+
+            //TODO Play VFX
+            //TODO Play SFX
+        }
+        
 
         // play VFX
+
+
+        Destroy(gameObject);
     }
 }

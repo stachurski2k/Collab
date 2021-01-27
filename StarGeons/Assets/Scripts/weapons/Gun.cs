@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
 
     [Header("Bullet Stats")]
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float bulletDamage = 10f;
+    [SerializeField] int bulletDamage = 10;
     [SerializeField] Transform bulletSpawn;
     [SerializeField] float bulletSpeed;
     [SerializeField] float bulletLifeTime;

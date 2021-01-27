@@ -4,28 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovment : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] float speed = 2f;
-    [SerializeField] float strength = 5f;
+    [SerializeField] int strength = 5;
+    [SerializeField] float acceleration = 8f;
     [SerializeField] float angularSpeed = 120f;
-    [SerializeField] float acceleration = 120f;
     [SerializeField] float stoppingDistance = 1f;
 
     [Header("AI")]
     [SerializeField] Transform target;
     [SerializeField] float chaseRange = 5f;
     [SerializeField] float escapeRange = 15f;
+    [SerializeField] float hitDelay = 0.5f;
+
 
     NavMeshAgent navMeshAgent;
+    Health enemyHealth;
+    PlayerHandler playerHandler;
     float distanceToTarget = Mathf.Infinity;
     bool isProvoked = false;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        
+        enemyHealth = GetComponent<Health>();
+        playerHandler = FindObjectOfType<PlayerHandler>();
     }
 
     void Update()
@@ -33,6 +38,28 @@ public class EnemyMovment : MonoBehaviour
         setUpAgent();
 
         handleMovement();
+
+        lifeCheck();
+    }
+
+    private void handleMovement()
+    {
+        if (!target) { return; }
+        distanceToTarget = Vector3.Distance(target.position, transform.position);
+
+        if (isProvoked)
+        {
+            EngageTarget();
+        }
+        else if (distanceToTarget <= chaseRange)
+        {
+            isProvoked = true;
+        }
+
+        if (distanceToTarget >= escapeRange)
+        {
+            isProvoked = false;
+        }
     }
 
     private void setUpAgent()
@@ -43,23 +70,12 @@ public class EnemyMovment : MonoBehaviour
         navMeshAgent.stoppingDistance = stoppingDistance;
     }
 
-    private void handleMovement()
+    private void lifeCheck()
     {
-        distanceToTarget = Vector3.Distance(target.position, transform.position);
-
-        if (isProvoked)
+        if (enemyHealth.GetHealPoints() <= 0)
         {
-            EngageTarget();
-        }
-        else if (distanceToTarget <= chaseRange)
-        {
-            isProvoked = true;
-            //navMeshAgent.SetDestination(target.position);
-        }
-
-        if (distanceToTarget >= escapeRange)
-        {
-            isProvoked = false;
+            // TODO Death effects (Vfx, SfX, etc...)
+            Destroy(gameObject);
         }
     }
 
@@ -78,21 +94,32 @@ public class EnemyMovment : MonoBehaviour
 
     private void AttackTarget()
     {
-        print("attacked target");
-        //attack player
+        print("attaking player");
+        //playerHandler.playerTakeHit(strength);
+        //TODO play animation, VFX, SFX
     }
 
     private void ChaseTarget()
     {
+        //TODO Play Animation, SFX
+        if (!target) { return; }
         navMeshAgent.SetDestination(target.position);
+    }
+
+    public void takeHit(int damageTaken)
+    {
+        isProvoked = true;
+        enemyHealth.takeHeal(damageTaken);
     }
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, stoppingDistance);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, escapeRange);
     }
+
 }
-// TODO Provoke enemy

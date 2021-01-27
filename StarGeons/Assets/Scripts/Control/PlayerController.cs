@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     RaycastHit groundHit;
     //Movement bools
     bool isGrounded;
+
     void Start()
     {
         iHandler=GetComponent<InputHandler>();
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         CalculateLook();
     }
+
     private void FixedUpdate()
     {
         CalculateMovement();
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
         camRot=Mathf.Clamp(camRot,-lookBounds,lookBounds);
         cam.localRotation=Quaternion.Euler(camRot,0,0);
     }
+
     void CalculateMovement(){
         movementDir=((transform.forward*iHandler.GetMovement().y)+(transform.right*iHandler.GetMovement().x));
 
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     void UpdateSpeed(){
         currentSpeed=walkSpeed;
         if(isGrounded){
@@ -87,6 +91,7 @@ public class PlayerController : MonoBehaviour
             currentSpeed*=airControlMultiplier;
         }
     }
+
     void GroundCheck(){
         if (Physics.Raycast(groundCheck.transform.position, Vector3.down, out groundHit, disToGround,ground)) {
             slopeAngle=Vector3.Angle(groundHit.normal,movementDir.normalized)-90f;
