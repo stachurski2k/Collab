@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e0588258f71a74dbfdcaffb3c3fd01, type: 3}
+  m_Name: BaseRegion
+  m_EditorClassIdentifier: 
+  mapPieces:
+  - type: 5
+    piecePrefab: {fileID: 3436118127506438999, guid: d1baf28e8f3592a4cafd7f829217cd78,
+      type: 3}
+    defaultRotation: 0
+  - type: 1
+    piecePrefab: {fileID: 3436118127506438999, guid: d1baf28e8f3592a4cafd7f829217cd78,
+      type: 3}
+    defaultRotation: 0
+  roomPieces:
+  - type: 0
+    piecePrefab: {fileID: 0}
+    defaultRotation: 0
+  - type: 0
+    piecePrefab: {fileID: 0}
+    defaultRotation: 0
+  possibleItems:
+  - spawnChance: 0
+    item: {fileID: 0}
+  possibleEnemies:
+  - enemy: {fileID: 0}
+  - enemy: {fileID: 0}

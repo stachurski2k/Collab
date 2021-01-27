@@ -379,7 +379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &867640486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &905403439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,7 +529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1048926049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,17 +1148,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2084668403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02a492dba6602bc41b7e1b07d61ac81b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e1dfb2c07a4efc4bb84d76d3e9b03ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generators:
-  - {fileID: 1048926049}
-  - {fileID: 867640486}
-  - {fileID: 905403439}
-  mapSize: 14
-  stairs: {fileID: 1518859205534250766, guid: 3fae745cf02de824b8ac67f4ed1eb46c, type: 3}
-  levelOffset: 1.5
-  scale: 6
+  mapSize: 9
+  mapScale: 6
+  numberOfFloors: 6
+  floorOffset: 0
+  maxRooms: 0
+  minRoomSize: 0
+  maxRoomSize: 0
+  baseRegion: {fileID: 11400000, guid: c64965f01daf6ff4cb87d95dc0947093, type: 2}
+  regions: []
 --- !u!4 &2084668405
 Transform:
   m_ObjectHideFlags: 0
