@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 580482607}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580482606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.121, z: 0.5046}
+  m_LocalPosition: {x: 0, y: 0.121, z: 0.535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3737329863095226910}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 1881458653177275134}
   - component: {fileID: 1881458653177275009}
   - component: {fileID: 1881458653177275008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayersBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,6 +508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MuzzleFlashEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011227296186, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -779,10 +783,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.41400003
       objectReference: {fileID: 0}
+    - target: {fileID: 7452659996217933630, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452953598909870936, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7453066815395891840, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7453186899669441664, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7453206499770187870, guid: be165c2d9a44a134ca4583129fb542e2,
         type: 3}
       propertyPath: m_Name
       value: Rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7453206499770187870, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7453320646715395230, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7453457375632287424, guid: be165c2d9a44a134ca4583129fb542e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be165c2d9a44a134ca4583129fb542e2, type: 3}

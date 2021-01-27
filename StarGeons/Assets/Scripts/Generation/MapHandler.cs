@@ -9,9 +9,12 @@ public class MapHandler : MonoBehaviour
     [SerializeField] GameObject stairs;
     [SerializeField] float levelOffset;
     [SerializeField] int scale=6;
+    [Header("NavMesh")]
+    [SerializeField] navmeshBaker navmeshBaker;
     int level=0;
     List<MapLocation> bottomEnds=new List<MapLocation>();
     List<MapLocation> topEnds=new List<MapLocation>();
+
     private void Start()
     {
         foreach(var gen in generators){
@@ -63,8 +66,10 @@ public class MapHandler : MonoBehaviour
         foreach(var gen in generators){
             gen.MoveToOffsetPos();
         }
-        
+
+        navmeshBaker.bakeNavMesh();
     }
+
 }
 // if((generators[i].piecePlaces[x,z].piece==Map.PieceType.DeadEnd||
 // generators[i].piecePlaces[x,z].piece==Map.PieceType.DeadToLeft||
