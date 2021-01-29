@@ -270,6 +270,8 @@ GameObject:
   - component: {fileID: 1881458653750219727}
   - component: {fileID: 1881458653750219726}
   - component: {fileID: 1881458653750219721}
+  - component: {fileID: 1034361473}
+  - component: {fileID: 1034361474}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -476,6 +478,31 @@ MonoBehaviour:
   airControlMultiplier: 0.6
   jumpForce: 850
   useSlope: 1
+--- !u!114 &1034361473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881458653750219720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d80325e2fc88c34dae83605d5d81a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 15
+--- !u!114 &1034361474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881458653750219720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9529e7f5f2784ca429302d56d8fcba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3735733326615905524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,7 +519,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 198000011329176718}
   bulletPrefab: {fileID: 1545443153778593210, guid: 0e5b61163ad446f4691abdad98a9b62d,
     type: 3}
-  bulletDamage: 10
+  bulletDamage: 2
   bulletSpawn: {fileID: 580482607}
   bulletSpeed: 50
   bulletLifeTime: 5

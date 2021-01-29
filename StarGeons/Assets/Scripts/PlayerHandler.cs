@@ -12,7 +12,6 @@ public class PlayerHandler : MonoBehaviour
         PlayerHealth = GetComponent<Health>();
     }
 
-
     void Update()
     {
         lifeCheck();

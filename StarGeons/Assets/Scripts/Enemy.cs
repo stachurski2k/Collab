@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent navMeshAgent;
     Health enemyHealth;
     PlayerHandler playerHandler;
+    Animator animator;
     float distanceToTarget = Mathf.Infinity;
     bool isProvoked = false;
 
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyHealth = GetComponent<Health>();
         playerHandler = FindObjectOfType<PlayerHandler>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -94,13 +96,14 @@ public class Enemy : MonoBehaviour
 
     private void AttackTarget()
     {
-        print("attaking player");
+        animator.SetBool("isAttacking", true);
         //playerHandler.playerTakeHit(strength);
         //TODO play animation, VFX, SFX
     }
 
     private void ChaseTarget()
     {
+        animator.SetBool("isAttacking", false);
         //TODO Play Animation, SFX
         if (!target) { return; }
         navMeshAgent.SetDestination(target.position);
@@ -110,6 +113,12 @@ public class Enemy : MonoBehaviour
     {
         isProvoked = true;
         enemyHealth.takeHeal(damageTaken);
+    }
+
+    public void hitPlayer()
+    {
+        print("attaking player");
+        playerHandler.playerTakeHit(strength);
     }
 
     private void OnDrawGizmosSelected()

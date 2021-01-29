@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &77497399
+--- !u!1001 &385689003
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -190,18 +190,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac4ac1a137dc2394e9806502d4180dd9, type: 3}
---- !u!114 &644136343 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4175751848726897669, guid: ac4ac1a137dc2394e9806502d4180dd9,
-    type: 3}
-  m_PrefabInstance: {fileID: 77497399}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3870012c7632b74da3bd0aa5555648c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +565,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1881458653074171968}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2022040684 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4175751848726897669, guid: ac4ac1a137dc2394e9806502d4180dd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 385689003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3870012c7632b74da3bd0aa5555648c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2084668403
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
   stairs: {fileID: 1518859205534250766, guid: 3fae745cf02de824b8ac67f4ed1eb46c, type: 3}
   levelOffset: 1.5
   scale: 6
-  navmeshBaker: {fileID: 644136343}
+  navmeshBaker: {fileID: 2022040684}
 --- !u!4 &2084668405
 Transform:
   m_ObjectHideFlags: 0
