@@ -15,7 +15,7 @@ public class Generator:MonoBehaviour
     public MapPos entry,exit;
     int mapSize;
     float scale;
-    const int mapExpand=3;
+    static int mapExpand=3;
     public float xOffset,zOffset;
     public void CreteMap(float scale,int mapSize,RegionConfig currentRegion){
         this.mapSize=mapSize;
@@ -112,21 +112,27 @@ public class Generator:MonoBehaviour
         {
             var roomType=(RoomType)Random.Range(0,Sys.Enum.GetNames(typeof(RoomType)).Length);
 
-            int startX=Random.Range(3,mapSize-3);
-            int startZ=Random.Range(3,mapSize-3);
+            int startX=Random.Range(4,mapSize-4);
+            int startZ=Random.Range(4,mapSize-4);
             int roomWidth=Random.Range(minSize,maxSize);
             int roomDepth=Random.Range(minSize,maxSize);
 
-            var room= new Room(roomType,roomWidth,roomDepth);
-            rooms.Add(room);
-            for (int x = startX; x < mapSize-3&&x<startX+roomWidth; x++)
+            int totalWidth=startX+roomWidth;
+            totalWidth=(totalWidth<mapSize-1)?roomWidth:mapSize-startX-1;
+
+            int totalDepth=startZ+roomDepth;
+            totalDepth=(totalDepth<mapSize-1)?roomDepth:mapSize-startZ-1;
+
+            for (int x = startX; x < mapSize-1&&x<startX+roomWidth; x++)
             {
-                for (int z = startZ; z < mapSize-3&&z<startZ+roomDepth; z++)
+                for (int z = startZ; z < mapSize-1&&z<startZ+roomDepth; z++)
                 {
+             
                     map[x,z]=0;
-                    room.roomParts.Add(new MapPos(x,z));
                 }
             }
+            var room= new Room(roomType,new MapPos(startX,startZ),totalWidth,totalDepth);
+            rooms.Add(room);
             
         }
     }
@@ -327,28 +333,83 @@ public class Generator:MonoBehaviour
         List<MapPos> used=new List<MapPos>();
         foreach (var room in rooms)
         {
-            if(room.roomType==RoomType.treasure){
-                for (int i = 0; i < currentRegion.maxItemsPerRoom; i++)
+            for (int x = 0; x < room.width; x++)
+            {
+                MapPos pos=new MapPos(x+room.roomStart.x+mapExpand,room.depth+room.roomStart.z+mapExpand);
+                if(used.Contains(pos)||objects[pos.x,pos.z].type!=MapPieceType.wall)
                 {
-                    room.roomParts.Shuffle();
-                    if(used.Contains(room.roomParts[0])){
+                    continue;
+                }
+                used.Add(pos);
+                room.CreateThingAt(currentRegion.GetRandomFurniture(FurnitureType.wardrobe),transform.position,x,room.depth-1,scale,180);
+            }
+            for (int x = 0; x < room.width; x++)
+            {
+                MapPos pos=new MapPos(x+room.roomStart.x+mapExpand,room.roomStart.z+mapExpand-1);
+                if(used.Contains(pos)||objects[pos.x,pos.z].type!=MapPieceType.wall)
+                {
+                    continue;
+                }
+                used.Add(pos);
+                room.CreateThingAt(currentRegion.GetRandomFurniture(FurnitureType.wardrobe),transform.position,x,0,scale);
+            }
+            for (int z = 0; z < room.depth; z++)
+            {
+                MapPos pos=new MapPos(room.roomStart.x+mapExpand-1,z+room.roomStart.z+mapExpand);
+                if(used.Contains(pos)||objects[pos.x,pos.z].type!=MapPieceType.wall)
+                {
+                    continue;
+                }
+                used.Add(pos);
+                room.CreateThingAt(currentRegion.GetRandomFurniture(FurnitureType.wardrobe),transform.position,0,z,scale,90);
+            }
+            for (int z = 0; z < room.depth; z++)
+            {
+                MapPos pos=new MapPos(room.roomStart.x+mapExpand+room.width,z+room.roomStart.z+mapExpand);
+                if(used.Contains(pos)||objects[pos.x,pos.z].type!=MapPieceType.wall)
+                {
+                    continue;
+                }
+                used.Add(pos);
+                room.CreateThingAt(currentRegion.GetRandomFurniture(FurnitureType.wardrobe),transform.position,room.width-1,z,scale,-90);
+            }
+            for (int x = 1; x < room.width-1; x++)
+            {
+                for (int z = 1; z < room.depth-1; z++)
+                {
+                    MapPos pos=new MapPos(room.roomStart.x+mapExpand+x,room.roomStart.z+mapExpand+z);
+                    if(used.Contains(pos)||Random.Range(0,1f)<.75f){
                         continue;
                     }
-                    Vector3 pos=new Vector3((room.roomParts[0].x+mapExpand)*scale,0,(room.roomParts[0].z+mapExpand)*scale)+transform.position;
-                    used.Add(room.roomParts[0]);
-                    Instantiate(currentRegion.GetRandomItem(),pos,Quaternion.identity);
+                    used.Add(pos);
+                    room.CreateThingAt(currentRegion.GetRandomFurniture(FurnitureType.table),transform.position,x,z,scale);
+                }
+            }
+            //items
+            if(room.roomType==RoomType.treasure){
+                for (int x = 1; x < room.width-1; x++)
+                {
+                    for (int z = 1; z < room.depth-1; z++)
+                    {
+                        MapPos pos=new MapPos(x+room.roomStart.x+mapExpand,z+room.roomStart.z+mapExpand);
+                        if(!used.Contains(pos)){
+                            room.CreateThingAt(currentRegion.GetRandomItem(),transform.position,x,z,scale);
+                            used.Add(pos);
+                        }
+                    }
                 }
             }
             else if(room.roomType==RoomType.enemySpawn){
-                for (int i = 0; i < currentRegion.maxEnemiesPerRoom; i++)
+                  for (int x = 1; x < room.width-1; x++)
                 {
-                    room.roomParts.Shuffle();
-                    if(used.Contains(room.roomParts[0])){
-                        continue;
+                    for (int z = 1; z < room.depth-1; z++)
+                    {
+                        MapPos pos=new MapPos(x+room.roomStart.x+mapExpand,z+room.roomStart.z+mapExpand);
+                        if(!used.Contains(pos)){
+                            room.CreateThingAt(currentRegion.GetRandomEnemy(),transform.position,x,z,scale);
+                            used.Add(pos);
+                        }
                     }
-                    Vector3 pos=new Vector3((room.roomParts[0].x+mapExpand)*scale,0,(room.roomParts[0].z+mapExpand)*scale)+transform.position;
-                    used.Add(room.roomParts[0]);
-                    Instantiate(currentRegion.GetRandomEnemy(),pos,Quaternion.identity);
                 }
             }
         }
@@ -401,6 +462,23 @@ public class Generator:MonoBehaviour
     public void MoveToPos(float height){
         transform.position=new Vector3(xOffset*scale,height*scale,zOffset*scale);
     }
+    public class Room{
+    public RoomType roomType;
+    public bool[,] roomMap;
+    public MapPos roomStart;
+    public int width,depth;
+    public Room(RoomType type,MapPos startPos,int roomWidth,int roomDepth){
+        roomMap=new bool[roomWidth,roomDepth];
+        roomType=type;
+        roomStart=startPos;
+        width=roomWidth;
+        depth=roomDepth;
+    }
+    public void CreateThingAt(GameObject prefab,Vector3 parent,int x,int z,float scale,float rotation=0){
+        Vector3 pos=new Vector3((roomStart.x+mapExpand+x)*scale,0,(roomStart.z+mapExpand+z)*scale)+parent;
+        GameObject.Instantiate(prefab,pos,Quaternion.Euler(0,rotation,0));
+    }
+}
 }
 public class PosData{
     public MapPieceType type;
@@ -425,13 +503,5 @@ public class PosData{
         pieceObj.transform.SetParent(parent);
         pieceObj.name=piecePrefab.type.ToString();
     }
-}
-public class Room{
-    public RoomType roomType;
-    public List<MapPos> roomParts=new List<MapPos>();
-    public bool[,] roomMap;
-    public Room(RoomType type,int roomWidth,int roomDepth){
-        roomType=type;
-    } 
 }
 }
