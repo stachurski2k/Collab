@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e0588258f71a74dbfdcaffb3c3fd01, type: 3}
+  m_Name: Canals
+  m_EditorClassIdentifier: 
+  numberOfFloors: 1
+  mapMinMaxSize: {x: 7, y: 10}
+  numberOfRooms: 0
+  roomMinMaxSize: {x: 2, y: 7}
+  mapPieces:
+  - type: 3
+    piecePrefab: {fileID: 119137663807568694, guid: a2a4757b68fbd4b1095ad77f6a2ef549,
+      type: 3}
+    defaultRotation: 0
+  - type: 2
+    piecePrefab: {fileID: 621298790283293777, guid: 2c27ba33514de407eb9f1a52b2249a3f,
+      type: 3}
+    defaultRotation: 0
+  - type: 0
+    piecePrefab: {fileID: 3765859747441610002, guid: 480f49e193f5142019b30ce40c90f022,
+      type: 3}
+    defaultRotation: 90
+  - type: 5
+    piecePrefab: {fileID: 3436118127506438999, guid: d1baf28e8f3592a4cafd7f829217cd78,
+      type: 3}
+    defaultRotation: 0
+  - type: 4
+    piecePrefab: {fileID: 3051935004574570374, guid: 814b3ad2ff43b4993a52eeb1ca5684e9,
+      type: 3}
+    defaultRotation: -90
+  - type: 1
+    piecePrefab: {fileID: 7009087815463852684, guid: 053e552363f3b4cce84738fcdfae9a54,
+      type: 3}
+    defaultRotation: 0
+  roomPieces:
+  - type: 0
+    piecePrefab: {fileID: 0}
+    defaultRotation: 0
+  - type: 0
+    piecePrefab: {fileID: 0}
+    defaultRotation: 0
+  possibleItems:
+  - spawnChance: 0
+    item: {fileID: 2224822736784149870, guid: 9ed3a85953d74d949b7f6487602a1165, type: 3}
+  possibleEnemies:
+  - enemy: {fileID: 2224822736784149870, guid: 9ed3a85953d74d949b7f6487602a1165, type: 3}
+  - enemy: {fileID: 2224822736784149870, guid: 62d08367402b8d54fb469bdd396a5aec, type: 3}

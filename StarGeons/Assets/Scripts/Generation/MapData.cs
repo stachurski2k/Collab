@@ -11,10 +11,27 @@ namespace MapGeneration{
         deadEnd,
         room,
         stairs,
+        wall,
     }
     public enum RoomPieceType{
         wall,
         celling,
         floor,
+        pillar,
+        door,
+    }
+    public enum RoomType{
+        treasure,
+        enemySpawn,
+    }
+    public enum FurnitureType{
+        desk,
+        table,
+        wardrobe,
+    }
+    public enum AlgorithmType{
+        prism,
+        recursive,
+        wilsons,
     }
 }
