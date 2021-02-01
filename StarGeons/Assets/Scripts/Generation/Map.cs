@@ -111,12 +111,18 @@ public class Map : MonoBehaviour
     }
     void PlacePlayer(){
         var player=GameObject.FindObjectOfType<PlayerControler>();
-        
+        player.transform.position=new Vector3(mapEntry.x,mapEntry.y*floorOffset,mapEntry.z)*mapScale;
     }
     void GetMapEntryAndExit(){
-        Generator generator1=generators[UnityEngine.Random.Range(0,generators.Length-1)];
-        MapPos entry=generator1.GetEntryPos();
-        mapEntry=new Vector3Int(entry.x,0,entry.z);
+        int index=UnityEngine.Random.Range(0,generators.Length-1);
+        MapPos entry=generators[index].GetEntryPos();
+        mapEntry=new Vector3Int(entry.x,index,entry.z);
+        index=UnityEngine.Random.Range(0,generators.Length-1);
+        MapPos exit=generators[index].GetExitPos();
+        mapExit=new Vector3Int(exit.x,index,exit.z);
+
+        var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        go.transform.position=new Vector3(mapExit.x,mapExit.y*floorOffset,mapExit.z)*mapScale;
     }
     #endregion
 

@@ -55,9 +55,9 @@ public class RegionConfig : ScriptableObject
         if(possibleEnemies.Length==0)return null;//no enemies
         return possibleEnemies[Random.Range(0,possibleEnemies.Length-1)].enemy;
     }
-    public GameObject GetRandomItem(){
+    public SpawnItemConfig GetRandomItem(){
         if(possibleItems.Length==0)return null;
-        return possibleItems[Random.Range(0,possibleItems.Length-1)].item;
+        return possibleItems[Random.Range(0,possibleItems.Length-1)];
     }
     public GameObject GetRandomFurniture(FurnitureType type){
         for (int i = 0; i < roomPieces.Length; i++)
@@ -87,6 +87,7 @@ public class RoomPieceConfig{
 }
 [System.Serializable]
 public class SpawnItemConfig{
+    [Range(0,100)]
     public float spawnChance;
     //Later change to item config when items sys is ready
     public GameObject item;

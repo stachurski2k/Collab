@@ -12,17 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e0588258f71a74dbfdcaffb3c3fd01, type: 3}
   m_Name: BaseRegion
   m_EditorClassIdentifier: 
-  numberOfFloors: 4
-  mapMinMaxSize: {x: 9, y: 15}
-  numberOfRooms: 7
+  numberOfFloors: 1
+  mapMinMaxSize: {x: 7, y: 10}
+  numberOfRooms: 2
   roomMinMaxSize: {x: 4, y: 5}
   mapPieces:
-  - type: 3
-    piecePrefab: {fileID: 3760734239235724737, guid: 82ed0c088161b6041b600d2ff11efa8d,
-      type: 3}
-    defaultRotation: 0
-  - type: 6
-    piecePrefab: {fileID: 1518859205534250766, guid: 3fae745cf02de824b8ac67f4ed1eb46c,
+  - type: 1
+    piecePrefab: {fileID: 1345551177234599916, guid: 1b2f1b890a4a4d346bd1db6480f19322,
       type: 3}
     defaultRotation: 0
   - type: 0
@@ -33,12 +29,16 @@ MonoBehaviour:
     piecePrefab: {fileID: 604237972855396456, guid: 09ae2ef723c039e47903e9422773f74b,
       type: 3}
     defaultRotation: 0
+  - type: 6
+    piecePrefab: {fileID: 1518859205534250766, guid: 3fae745cf02de824b8ac67f4ed1eb46c,
+      type: 3}
+    defaultRotation: 0
   - type: 5
     piecePrefab: {fileID: 3436118127506438999, guid: d1baf28e8f3592a4cafd7f829217cd78,
       type: 3}
     defaultRotation: 0
-  - type: 1
-    piecePrefab: {fileID: 1345551177234599916, guid: 1b2f1b890a4a4d346bd1db6480f19322,
+  - type: 3
+    piecePrefab: {fileID: 3760734239235724737, guid: 82ed0c088161b6041b600d2ff11efa8d,
       type: 3}
     defaultRotation: 0
   - type: 4
@@ -46,16 +46,16 @@ MonoBehaviour:
       type: 3}
     defaultRotation: 0
   roomPieces:
-  - type: 0
-    piecePrefab: {fileID: 8944321204056174671, guid: 1ab652e725fef724d9eb57531dc6ff89,
-      type: 3}
-    defaultRotation: 0
   - type: 3
     piecePrefab: {fileID: 919132149155446097, guid: dd7dd237b743ff8438831a07af6fe1d1,
       type: 3}
     defaultRotation: 0
   - type: 4
     piecePrefab: {fileID: 1005146763345933426, guid: 41db96c39c3851844875eb4c0b0ea327,
+      type: 3}
+    defaultRotation: 0
+  - type: 0
+    piecePrefab: {fileID: 8944321204056174671, guid: 1ab652e725fef724d9eb57531dc6ff89,
       type: 3}
     defaultRotation: 0
   furniture:
@@ -70,7 +70,7 @@ MonoBehaviour:
       type: 3}
   maxItemsPerRoom: 4
   possibleItems:
-  - spawnChance: 0
+  - spawnChance: 65
     item: {fileID: 2224822736784149870, guid: 9ed3a85953d74d949b7f6487602a1165, type: 3}
   maxEnemiesPerRoom: 3
   possibleEnemies:

@@ -48,12 +48,12 @@ public class Generator:MonoBehaviour
                 }
             }
         }
-        return exitPos;
+        return entryPos;
     }
     public MapPos GetExitPos(){
-        for (int x = mapSize; x > 1; x--)
+        for (int x = mapSize-1; x > 1; x--)
         {
-            for (int z = mapSize; z > 1; z--)
+            for (int z = mapSize-1; z > 1; z--)
             {
                 if(objects[x,z].type==MapPieceType.deadEnd){
                     return new MapPos(x,z);
@@ -378,7 +378,7 @@ public class Generator:MonoBehaviour
                 for (int z = 1; z < room.depth-1; z++)
                 {
                     MapPos pos=new MapPos(room.roomStart.x+mapExpand+x,room.roomStart.z+mapExpand+z);
-                    if(used.Contains(pos)||Random.Range(0,1f)<.75f){
+                    if(used.Contains(pos)||Random.Range(0,1f)<.85f){
                         continue;
                     }
                     used.Add(pos);
@@ -393,8 +393,11 @@ public class Generator:MonoBehaviour
                     {
                         MapPos pos=new MapPos(x+room.roomStart.x+mapExpand,z+room.roomStart.z+mapExpand);
                         if(!used.Contains(pos)){
-                            room.CreateThingAt(currentRegion.GetRandomItem(),transform.position,x,z,scale);
-                            used.Add(pos);
+                            var item=currentRegion.GetRandomItem();
+                            if(UnityEngine.Random.Range(0,100f)<item.spawnChance){
+                                room.CreateThingAt(item.item,transform.position,x,z,scale);
+                                used.Add(pos);
+                            }
                         }
                     }
                 }
@@ -462,6 +465,7 @@ public class Generator:MonoBehaviour
     public void MoveToPos(float height){
         transform.position=new Vector3(xOffset*scale,height*scale,zOffset*scale);
     }
+    
     public class Room{
     public RoomType roomType;
     public bool[,] roomMap;
@@ -478,6 +482,7 @@ public class Generator:MonoBehaviour
         Vector3 pos=new Vector3((roomStart.x+mapExpand+x)*scale,0,(roomStart.z+mapExpand+z)*scale)+parent;
         GameObject.Instantiate(prefab,pos,Quaternion.Euler(0,rotation,0));
     }
+    
 }
 }
 public class PosData{
