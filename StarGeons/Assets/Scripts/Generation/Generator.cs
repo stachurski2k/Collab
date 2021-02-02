@@ -7,14 +7,13 @@ public class Generator:MonoBehaviour
 {
     ///Map data
     public byte[,] map;
-    public MapPos entryPos,exitPos;
     public RegionConfig currentRegion;
     public PosData[,] objects;
     public List<Room> rooms=new List<Room>();
     public List<MapPos> pillarsPos=new List<MapPos>();
     public MapPos entry,exit;
-    int mapSize;
-    float scale;
+    public int mapSize;
+    public float scale;
     static int mapExpand=3;
     public float xOffset,zOffset;
     public void CreteMap(float scale,int mapSize,RegionConfig currentRegion){
@@ -44,11 +43,15 @@ public class Generator:MonoBehaviour
             for (int z = 0; z < mapSize; z++)
             {
                 if(objects[x,z].type==MapPieceType.deadEnd){
-                    return new MapPos(x,z);
+                    MapPos _entry=new MapPos(x,z);
+                    if(entry==null){
+                        entry=_entry;
+                    }
+                    return _entry;
                 }
             }
         }
-        return entryPos;
+        return entry;
     }
     public MapPos GetExitPos(){
         for (int x = mapSize-1; x > 1; x--)
@@ -56,11 +59,15 @@ public class Generator:MonoBehaviour
             for (int z = mapSize-1; z > 1; z--)
             {
                 if(objects[x,z].type==MapPieceType.deadEnd){
-                    return new MapPos(x,z);
+                     MapPos _exit=new MapPos(x,z);
+                    if(exit==null){
+                        exit=_exit;
+                    }
+                    return _exit;
                 }
             }
         }
-        return exitPos;
+        return exit;
     }
     public void GenerateMap(){
         Generate(2,2);

@@ -121,6 +121,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &224629779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224629780}
+  - component: {fileID: 224629781}
+  m_Layer: 0
+  m_Name: ThreadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &224629780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224629779}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 54.34696, y: 20.300138, z: 36.82325}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &224629781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224629779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73487e8f4d5f364c8d77679081180d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &237324989
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +642,7 @@ GameObject:
   - component: {fileID: 1750072207}
   - component: {fileID: 1750072206}
   - component: {fileID: 1750072201}
+  - component: {fileID: 1750072208}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -805,6 +849,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1750072208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750072200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a19c03b5b0ad354ea9715b7cc6c40c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1854450549
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +995,7 @@ MonoBehaviour:
   baseRegion: {fileID: 11400000, guid: c64965f01daf6ff4cb87d95dc0947093, type: 2}
   regions:
   - {fileID: 11400000, guid: c64965f01daf6ff4cb87d95dc0947093, type: 2}
+  generators: []
 --- !u!4 &2084668405
 Transform:
   m_ObjectHideFlags: 0

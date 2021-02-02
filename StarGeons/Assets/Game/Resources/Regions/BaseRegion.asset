@@ -17,45 +17,45 @@ MonoBehaviour:
   numberOfRooms: 2
   roomMinMaxSize: {x: 4, y: 5}
   mapPieces:
-  - type: 1
-    piecePrefab: {fileID: 1345551177234599916, guid: 1b2f1b890a4a4d346bd1db6480f19322,
-      type: 3}
-    defaultRotation: 0
-  - type: 0
-    piecePrefab: {fileID: 5282163346761856145, guid: 3869cf62dbd21b0489e0b05c22aa2d24,
-      type: 3}
-    defaultRotation: 0
-  - type: 2
-    piecePrefab: {fileID: 604237972855396456, guid: 09ae2ef723c039e47903e9422773f74b,
-      type: 3}
-    defaultRotation: 0
-  - type: 6
-    piecePrefab: {fileID: 1518859205534250766, guid: 3fae745cf02de824b8ac67f4ed1eb46c,
+  - type: 3
+    piecePrefab: {fileID: 3760734239235724737, guid: 82ed0c088161b6041b600d2ff11efa8d,
       type: 3}
     defaultRotation: 0
   - type: 5
     piecePrefab: {fileID: 3436118127506438999, guid: d1baf28e8f3592a4cafd7f829217cd78,
       type: 3}
     defaultRotation: 0
-  - type: 3
-    piecePrefab: {fileID: 3760734239235724737, guid: 82ed0c088161b6041b600d2ff11efa8d,
+  - type: 6
+    piecePrefab: {fileID: 1518859205534250766, guid: 3fae745cf02de824b8ac67f4ed1eb46c,
+      type: 3}
+    defaultRotation: 0
+  - type: 2
+    piecePrefab: {fileID: 604237972855396456, guid: 09ae2ef723c039e47903e9422773f74b,
+      type: 3}
+    defaultRotation: 0
+  - type: 1
+    piecePrefab: {fileID: 1345551177234599916, guid: 1b2f1b890a4a4d346bd1db6480f19322,
       type: 3}
     defaultRotation: 0
   - type: 4
     piecePrefab: {fileID: 7745126104387004723, guid: 530d76c06b4e4d84680b118f80d3eb57,
       type: 3}
     defaultRotation: 0
-  roomPieces:
-  - type: 3
-    piecePrefab: {fileID: 919132149155446097, guid: dd7dd237b743ff8438831a07af6fe1d1,
+  - type: 0
+    piecePrefab: {fileID: 5282163346761856145, guid: 3869cf62dbd21b0489e0b05c22aa2d24,
       type: 3}
     defaultRotation: 0
+  roomPieces:
   - type: 4
     piecePrefab: {fileID: 1005146763345933426, guid: 41db96c39c3851844875eb4c0b0ea327,
       type: 3}
     defaultRotation: 0
   - type: 0
     piecePrefab: {fileID: 8944321204056174671, guid: 1ab652e725fef724d9eb57531dc6ff89,
+      type: 3}
+    defaultRotation: 0
+  - type: 3
+    piecePrefab: {fileID: 919132149155446097, guid: dd7dd237b743ff8438831a07af6fe1d1,
       type: 3}
     defaultRotation: 0
   furniture:

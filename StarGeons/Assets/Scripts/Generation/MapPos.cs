@@ -15,8 +15,14 @@ public class MapPos
         this.x=x;
         this.z=z;
     }
+    public static MapPos operator +(MapPos a,MapPos b){
+        return new MapPos(a.x+b.x,a.z+b.z);
+    }
     public Vector3 ToVector3(float scale=1,float y=0){
         return new Vector3(x*scale,y,z*scale);
+    }
+    public Vector2 ToVector2(){
+        return new Vector2(x,z);
     }
     public override bool Equals(object obj)
     {

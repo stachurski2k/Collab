@@ -15,13 +15,14 @@ public class Map : MonoBehaviour
     [SerializeField] RegionConfig baseRegion;
     [SerializeField] RegionConfig[] regions;
     public Event OnMapGenerated;
-    Generator[] generators;
+    [HideInInspector]
+    public Generator[] generators;
     int mapSize,numberOfFloors;
     public static Map instance;
     List<MapPos> bottomEnds=new List<MapPos>();
     List<MapPos> topEnds=new List<MapPos>();
     RegionConfig currentRegion;
-    Vector3Int mapEntry,mapExit;
+    public Vector3Int mapEntry,mapExit;
     private void Awake()
     {
         if(instance==null){
@@ -60,6 +61,7 @@ public class Map : MonoBehaviour
         GetMapEntryAndExit();
         PlacePlayer();
         InvokeOnMapGenerated();
+
     }
     bool PlaceStairs(int i, float rotAngle,MapPieceType lower,MapPieceType upper){
         for (int x = 0; x < mapSize; x++)

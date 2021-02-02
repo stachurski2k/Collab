@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using System.Threading;
+using System;
+namespace MapGeneration{
 public class PathMarker{
-    public MapLocation location;
+    public MapPos location;
     public float G,H,F;
     public PathMarker parent;
-    public PathMarker(MapLocation l,float g,float h,float f,PathMarker p){
+    public PathMarker(MapPos l,float g,float h,float f,PathMarker p){
         G=g;
         H=h;
         F=f;
@@ -23,93 +26,79 @@ public class PathMarker{
 }
 public class PathFinder : MonoBehaviour
 {
-    public Map map;
-    List<PathMarker> openMarkers=new List<PathMarker>();
-    List<PathMarker> closedMarkers=new List<PathMarker>();
-    public PathMarker goalMarker;
-    public PathMarker startMarker;
-    PathMarker lastPos;
-    bool done;
-    public void Build()
+    public static PathFinder instance;
+    private void Awake()
     {
-        BeginSerch();
-        while(!done){
-            Search(lastPos);
+        if(instance==null){
+            instance=this;
+        }else{
+            Destroy(this);
         }
-        map.InitialiseMap();
-        GetPath();
     }
-
-    // void Update()
-    // {
-    //     if(Keyboard.current.pKey.wasPressedThisFrame){
-    //         DeleteAllMarkers();
-    //         BeginSerch();
-    //     }
-    //     if(Keyboard.current.cKey.wasPressedThisFrame&&!done){
-    //         Search(lastPos);
-    //     }
-    // }
-    void BeginSerch(){
-        done=false;
-        List<MapLocation> locations=new List<MapLocation>();
-        for (int x = 1; x < map.width-1; x++)
-        {
-            for (int z = 1; z < map.depth-1; z++)
+    public static void BeginBuild(Generator _map,MapPos start,MapPos end,Func<List<PathMarker>,int> pathHandler){
+        
+        Thread thread=new Thread(new ThreadStart(()=>{
+            List<MapPos> locations=new List<MapPos>();
+            for (int x = 1; x < _map.mapSize-1; x++)
             {
-                if(map.map[x,z]!=1){
-                    locations.Add(new MapLocation(x,z));
+                for (int z = 1; z < _map.mapSize-1; z++)
+                {
+                    if(_map.map[x,z]!=1){
+                        locations.Add(new MapPos(x,z));
+                    }
                 }
             }
+            PathMarker startMarker=new PathMarker(start,0,0,0,null);
+            PathMarker goalMarker=new PathMarker(end,0,0,0,null);
+            List<PathMarker> openMarkers=new List<PathMarker>();
+            List<PathMarker> closedMarkers=new List<PathMarker>();
+            PathMarker lastPos=startMarker;
+            openMarkers.Add(startMarker);
+
+            bool done=false;
+            while(!done){
+                if(lastPos.Equals(goalMarker)){
+                    done=true;break;
+                }
+                foreach (var dir in MapPos.directions)
+                {
+                    var neighbour=dir+lastPos.location;
+                    if(_map.map[neighbour.x,neighbour.z]==1)continue;
+                    if(neighbour.x<1||neighbour.x>=_map.mapSize||neighbour.z<1||neighbour.z>=_map.mapSize)continue;
+                    if(IsClosed(neighbour,closedMarkers))continue;
+                    float G=Vector2.Distance(lastPos.location.ToVector2(),neighbour.ToVector2())+lastPos.G;
+                    float H=Vector2.Distance(neighbour.ToVector2(),goalMarker.location.ToVector2());
+                    float F=G+H;
+                    //var pathBlock=Instantiate(visitedOBJ,neighbour.ToVector3(map.scale,map.height),Quaternion.identity);
+                    
+                    if(!UpdateMarker(neighbour,G,H,F,lastPos,openMarkers)){
+                        openMarkers.Add(new PathMarker(neighbour,G,H,F,lastPos));
+                    }
+                }
+                openMarkers=openMarkers.OrderBy(p=>p.F).ToList<PathMarker>();
+                PathMarker pathMarker=openMarkers[0];
+                closedMarkers.Add(pathMarker);
+                openMarkers.RemoveAt(0);
+                lastPos=pathMarker;
+            }
+            List<PathMarker> path=GetPath(lastPos);
+            ThreadManager.ExecuteOnMainThread(()=>{
+                pathHandler(path);
+            });
         }
-        locations.Shuffle();
-        startMarker=new PathMarker(locations[0],0,0,0,null);
-       goalMarker=new PathMarker(locations[1],0,0,0,null);
-        openMarkers.Clear();
-        closedMarkers.Clear();
-        openMarkers.Add(startMarker);
-        lastPos=startMarker;
+        ));
+        thread.Start();
     }
-    void GetPath(){
+    static List<PathMarker> GetPath(PathMarker lastPos){
         PathMarker pos=lastPos;
         List<PathMarker> path=new List<PathMarker>();
         while(pos!=null){
             path.Add(pos);
             pos=pos.parent;
         }
-       foreach (var item in path)
-       {
-           map.map[item.location.x,item.location.z]=0;
-       }
-        // foreach(var pathPos in path){
-        //     pathPos.marker.transform.GetComponent<MeshRenderer>().material.color=Color.green;
-        // }
+        return path;
     }
-    void Search(PathMarker marker){
-        if(marker.Equals(goalMarker)){done=true;
-        return;}
-        foreach (var dir in map.directions)
-        {
-            var neighbour=dir+marker.location;
-            if(map.map[neighbour.x,neighbour.z]==1)continue;
-            if(neighbour.x<1||neighbour.x>=map.width||neighbour.z<1||neighbour.z>=map.depth)continue;
-            if(IsClosed(neighbour))continue;
-            float G=Vector2.Distance(marker.location.ToVector2(),neighbour.ToVector2())+marker.G;
-            float H=Vector2.Distance(neighbour.ToVector2(),goalMarker.location.ToVector2());
-            float F=G+H;
-            //var pathBlock=Instantiate(visitedOBJ,neighbour.ToVector3(map.scale,map.height),Quaternion.identity);
-            
-            if(!UpdateMarker(neighbour,G,H,F,marker)){
-                openMarkers.Add(new PathMarker(neighbour,G,H,F,marker));
-            }
-        }
-        openMarkers=openMarkers.OrderBy(p=>p.F).ToList<PathMarker>();
-        PathMarker pathMarker=openMarkers[0];
-        closedMarkers.Add(pathMarker);
-        openMarkers.RemoveAt(0);
-        lastPos=pathMarker;
-    }
-    bool UpdateMarker(MapLocation pos, float g, float h, float f,PathMarker marker){
+    static bool UpdateMarker(MapPos pos, float g, float h, float f,PathMarker marker,List<PathMarker> openMarkers){
         foreach (var m in openMarkers)
         {
             if(m.location.Equals(pos)){
@@ -122,11 +111,12 @@ public class PathFinder : MonoBehaviour
         }
         return false;
     }
-    bool IsClosed(MapLocation marker){
+    static bool IsClosed(MapPos marker,List<PathMarker> closedMarkers){
         foreach (var item in closedMarkers)
         {
             if(item.location.Equals(marker))return true;
         }
         return false;
     }
+}
 }
