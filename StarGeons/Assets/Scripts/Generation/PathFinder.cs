@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
-using System.Threading;
 using System;
 namespace MapGeneration{
 public class PathMarker{
@@ -35,10 +34,14 @@ public class PathFinder : MonoBehaviour
             Destroy(this);
         }
     }
-    public static void BeginBuild(Generator _map,MapPos start,MapPos end,Func<List<PathMarker>,int> pathHandler){
-        
-        Thread thread=new Thread(new ThreadStart(()=>{
-            List<MapPos> locations=new List<MapPos>();
+    public static void BeginBuild(Generator _map,MapPos start,MapPos end,Action<List<PathMarker>> pathHandler){
+        ThreadManager.ExecuteOnNewThread<List<PathMarker>>(()=>{
+            return Search(_map,start,end);
+        },pathHandler);
+            
+    }
+    static List<PathMarker> Search(Generator _map,MapPos start,MapPos end){
+        List<MapPos> locations=new List<MapPos>();
             for (int x = 1; x < _map.mapSize-1; x++)
             {
                 for (int z = 1; z < _map.mapSize-1; z++)
@@ -81,13 +84,7 @@ public class PathFinder : MonoBehaviour
                 openMarkers.RemoveAt(0);
                 lastPos=pathMarker;
             }
-            List<PathMarker> path=GetPath(lastPos);
-            ThreadManager.ExecuteOnMainThread(()=>{
-                pathHandler(path);
-            });
-        }
-        ));
-        thread.Start();
+            return GetPath(lastPos);
     }
     static List<PathMarker> GetPath(PathMarker lastPos){
         PathMarker pos=lastPos;
