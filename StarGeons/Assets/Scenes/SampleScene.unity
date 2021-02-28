@@ -783,12 +783,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125db3514b54b7844a864e7272fd5c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheck: {fileID: 0}
   walkSpeed: 5
   sprintMultiplier: 1.5
   crouchMultiplier: 0.7
   airControlMultiplier: 0.6
   jumpForce: 10
   gravity: 20
+  smothing: {x: 3, y: 3}
 --- !u!114 &1750072203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,7 +1861,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 566945d12a973d94998a23466f293038, type: 3}
+  - {fileID: 2100000, guid: bd50e0fd445b8074aab5d1ada80e463e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
